@@ -11,7 +11,7 @@ AUTHOR_EMAIL = "yanni.wangh@harc.com.au"
 PROJECT_URLS = {
     "Documentation": "",
     "Bug Tracker": "",
-    "Source Code": "https://github.com/Yanni-HARC/RORB-FEWS-adapter.git",
+    "Source Code": "https://github.com/H-A-R-C/FEWS_RORB_Adapter.git",
 }
 INSTALL_REQUIRES = [
     "pandas == 2.2.3",
