@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TimeSeries xmlns="http://www.wldelft.nl/fews/PI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wldelft.nl/fews/PI https://fewsdocs.deltares.nl/schemas/version1.0/pi-schemas/pi_timeseries.xsd" version="1.10">
+    <daylightSavingObservingTimeZone>AET</daylightSavingObservingTimeZone>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>410571</locationId>
+            <parameterId>H_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Happy Jacks Dam (410571)</stationName>
+            <lat>-36.00251944</lat>
+            <lon>148.4498806</lon>
+            <x>148.4498806</x>
+            <y>-36.00251944</y>
+            <z>-1.177</z>
+            <units>m</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="1191.901" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>410542</locationId>
+            <parameterId>H_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Tumut Pond Dam (410542)</stationName>
+            <lat>-35.96495556</lat>
+            <lon>148.3900722</lon>
+            <x>148.3900722</x>
+            <y>-35.96495556</y>
+            <z>-1.177</z>
+            <units>m</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="1129.959" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>410545</locationId>
+            <parameterId>H_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Tumut 2 Dam (410545)</stationName>
+            <lat>-35.92665</lat>
+            <lon>148.3622139</lon>
+            <x>148.3622139</x>
+            <y>-35.92665</y>
+            <z>-1.177</z>
+            <units>m</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="823.098" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>410572A</locationId>
+            <parameterId>H_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Talbingo Dam (410572A)</stationName>
+            <lat>-35.62396389</lat>
+            <lon>148.2999167</lon>
+            <x>148.2999167</x>
+            <y>-35.62396389</y>
+            <z>-1.177</z>
+            <units>m</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="543.588" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>410573</locationId>
+            <parameterId>H_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Jounama Dam (410573)</stationName>
+            <lat>-35.56149444</lat>
+            <lon>148.3066528</lon>
+            <x>148.3066528</x>
+            <y>-35.56149444</y>
+            <z>-1.177</z>
+            <units>m</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="389.712" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>410102</locationId>
+            <parameterId>H_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Blowering Dam (410102)</stationName>
+            <lat>-35.401</lat>
+            <lon>148.2429</lon>
+            <x>148.2429</x>
+            <y>-35.401</y>
+            <z>-1.177</z>
+            <units>m</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="375.396" flag="0"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>SpencersSnowCourse</locationId>
+            <parameterId>WC_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Spencers Creek (SpencersSnowCourse)</stationName>
+            <lat>-36.424847</lat>
+            <lon>148.348089</lon>
+            <x>148.348089</x>
+            <y>-36.424847</y>
+            <z>0.0</z>
+            <units>cm</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="-999.0" flag="8"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>DeepCreekSnowCourse</locationId>
+            <parameterId>WC_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Deep Creek (DeepCreekSnowCourse)</stationName>
+            <lat>-36.034946</lat>
+            <lon>148.374431</lon>
+            <x>148.374431</x>
+            <y>-36.034946</y>
+            <z>0.0</z>
+            <units>cm</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="-999.0" flag="8"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>ThreeMileDamSnowCourse</locationId>
+            <parameterId>WC_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Three Mile Dam (ThreeMileDamSnowCourse)</stationName>
+            <lat>-35.881592</lat>
+            <lon>148.452117</lon>
+            <x>148.452117</x>
+            <y>-35.881592</y>
+            <z>0.0</z>
+            <units>cm</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="-999.0" flag="8"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>SpencersSnowCourse</locationId>
+            <parameterId>SD_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Spencers Creek (SpencersSnowCourse)</stationName>
+            <lat>-36.424847</lat>
+            <lon>148.348089</lon>
+            <x>148.348089</x>
+            <y>-36.424847</y>
+            <z>0.0</z>
+            <units>cm</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="-999.0" flag="8"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>DeepCreekSnowCourse</locationId>
+            <parameterId>SD_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Deep Creek (DeepCreekSnowCourse)</stationName>
+            <lat>-36.034946</lat>
+            <lon>148.374431</lon>
+            <x>148.374431</x>
+            <y>-36.034946</y>
+            <z>0.0</z>
+            <units>cm</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="-999.0" flag="8"/>
+    </series>
+    <series>
+        <header>
+            <type>instantaneous</type>
+            <locationId>ThreeMileDamSnowCourse</locationId>
+            <parameterId>SD_observed</parameterId>
+            <ensembleId>rog</ensembleId>
+            <ensembleMemberIndex>0</ensembleMemberIndex>
+            <timeStep unit="second" multiplier="900"/>
+            <startDate date="2023-09-06" time="12:00:00"/>
+            <endDate date="2023-09-06" time="12:00:00"/>
+            <forecastDate date="2023-09-07" time="12:00:00"/>
+            <missVal>-999.0</missVal>
+            <stationName>Three Mile Dam (ThreeMileDamSnowCourse)</stationName>
+            <lat>-35.881592</lat>
+            <lon>148.452117</lon>
+            <x>148.452117</x>
+            <y>-35.881592</y>
+            <z>0.0</z>
+            <units>cm</units>
+            <creationDate>2024-04-04</creationDate>
+            <creationTime>11:46:32</creationTime>
+        </header>
+        <event date="2023-09-06" time="12:00:00" value="-999.0" flag="8"/>
+    </series>
+</TimeSeries>

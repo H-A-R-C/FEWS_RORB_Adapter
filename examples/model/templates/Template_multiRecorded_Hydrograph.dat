@@ -1,0 +1,4 @@
+{num_hydrographs}	!number of hydrographs that are to be overwritten
+{timestep}	!Transfer Time Step (hrs)
+{num_timestep}	! Number of timesteps
+{Recorded_hydrograph_files}

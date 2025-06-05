@@ -1,0 +1,223 @@
+from src.rorb_formatter import *
+from src.input_compiler import *
+
+# =============================================================================
+# Initialization
+# =============================================================================   
+# if len(sys.argv) != 2:
+#     raise logging.error("Invalid XML syntax.")
+# else:
+#     logging.info(f"{'runinfo_filepath'.ljust(25)} : {sys.argv[1]}")
+#     runinfo_xml = sys.argv[1]
+
+# Write RORB model input files
+def write_template_files(runinfo_xml):  
+    runinfo_compiler = RunInfo(runinfo_xml)
+    params_xml = runinfo_compiler.inputParameterFile
+    state_xml = runinfo_compiler.inputStateFile
+    meteo_netcdf = runinfo_compiler.inputMeteoFile
+    rain_netcdf = runinfo_compiler.inputRainFile
+    transfer_netcdf = runinfo_compiler.inputTransferFile
+    operation_netcdf = runinfo_compiler.inputOperationFile
+    hydrograph_netcdf = runinfo_compiler.inputHydrographFile
+    model_folder = runinfo_compiler.model_folder
+    template_folder = runinfo_compiler.model_folder + "templates\\"
+
+    # Write .par file 
+    # Load model parameters and formatted ones
+    param_compiler = Params(params_xml)
+    par_formatter = PARFormatter(runinfo_xml, params_xml)
+
+    # Fill in the Template_RORB_CMD
+    par_writer = TemplateWriter(f"{template_folder}Template_RORB_CMD.par", f"{model_folder}RORB_CMD.par")
+    par_writer.fill(replacements_dict={
+        "catg_file": f"{model_folder}Talbingo_with_Blowering.catg",
+        "stm_file": f"{model_folder}Rainfall.stm",
+        "num_burst": param_compiler.num_burst,
+        "num_isa": param_compiler.num_isa,
+        "loss_params_isa":  par_formatter.loss_params_isa,
+        "routing_params_isa":  par_formatter.routing_params_isa,
+        "gate_file": f"{model_folder}multiGateOps_UpperTumut_until_Jounama.dat",
+        "snow_file": f"Snowmelt :{model_folder}Snowmelt.dat" if param_compiler.snow_setting == "true" else "",
+        "matching_file": f"Matching :{model_folder}multiRecorded_hydrographs.dat",
+        }
+    )
+
+    par_writer.clear_empty_lines()
+
+    # Write .stm file 
+    # Load formatted storm data
+    storm_formatter = STMFormatter(runinfo_xml, rain_netcdf, params_xml)
+
+    # Fill in the Template_Rainfall
+    stm_writer = TemplateWriter(f"{template_folder}Template_Rainfall.stm", f"{model_folder}Rainfall.stm")
+    stm_writer.fill(replacements_dict={
+        "start_time": runinfo_compiler.startDateTime,
+        "end_time": runinfo_compiler.endDateTime,
+        "stm_setting": storm_formatter.stm_setting,
+        "pluvio_setting": storm_formatter.pluvio_setting,
+        "all_subarea_temporal_patterns": storm_formatter.all_subarea_temporal_patterns,
+        "subarea_rainfall": storm_formatter.subarea_rainfall,
+        "pluvio_choice": storm_formatter.pluvio_choice,
+        "baseflow_setting": storm_formatter.baseflow_setting,
+        "all_baseflow_hydrographs": storm_formatter.all_baseflow_hydrographs
+        }
+    )
+
+    # Write .catg file 
+    # Keep the original .catg file
+    catg_writer = TemplateWriter(f"{template_folder}Template_Talbingo_with_Blowering.catg", f"{model_folder}Talbingo_with_Blowering.catg")
+    catg_writer.fill(replacements_dict={})
+
+    # Write .dat file (snowmelt)
+    # Load formatted snow data
+    snow_formatter = SNOWFormatter(runinfo_xml, meteo_netcdf, state_xml)
+
+    # Fill in the Template_Snowmelt
+    snow_writer = TemplateWriter(f"{template_folder}Template_Snowmelt.dat", f"{model_folder}Snowmelt.dat")
+    snow_writer.fill(replacements_dict={
+        "temp_timeseries": snow_formatter.temp_timeseries,
+        "temp_number_increment": snow_formatter.temp_number_increment,
+        "wind_timeseries": snow_formatter.wind_timeseries,
+        "wind_number_increment": snow_formatter.wind_number_increment,
+        'num_elezone': len(snow_formatter.snowmelt_water_content_elezone),
+        "snowmelt_water_content_elezone": snow_formatter.snowmelt_water_content_elezone,
+        "snowmelt_weighted_snowpack_density": snow_formatter.snowmelt_weighted_snowpack_density,
+        }
+    )  
+    
+    # Write .dat file (gateops and transfer)
+    # Load file mapping configuration
+    file_mappping_config = JsonReader("file_mapping.json")
+    GateOps_big_dict= file_mappping_config.extract("GateOps_files_dict")
+    Qtrans_big_dict = file_mappping_config.extract("Qtrans_files_dict")
+    Qgen_big_dict = file_mappping_config.extract("Qgen_files_dict")
+    Recorded_hydrograph_big_dict = file_mappping_config.extract("Recorded_hydrographs_dict")
+
+    # Initialize gateops counter and input list
+    gateops_counter =0
+    gateops_storage_and_file_list = []
+
+    # Write gateops files
+    gateops = GateOpsFormatter(state_xml)
+    for key, value in GateOps_big_dict.items():
+        id = key
+        storage = value["storage"]
+        filename = value["filename"]
+        writer = TemplateWriter(f"{template_folder}Template_{filename}", f"{model_folder}{filename}")
+        writer.fill(replacements_dict={
+            "GateOpsTimeStep": gateops.timestep_hour,
+            "initial_reservoir_storage": gateops.initial_storage(id, f"{template_folder}Template_{filename}"),
+            }
+        )
+        gateops_storage_and_file_list.append(storage)
+        gateops_storage_and_file_list.append(f"{model_folder}{filename}")
+        gateops_counter +=1
+
+    # Initialize transfer counter and input list
+    transfer_counter = 0
+    transfer_file_list =[]
+
+    # Write transfer files
+    trans_formatter = TRANSFormatter(runinfo_xml, transfer_netcdf)
+    for key, value in Qtrans_big_dict.items():
+        id = key
+        in_node = value["in"]
+        out_node = value["out"]
+        filename = value["filename"]
+        writer = TemplateWriter(f"{template_folder}Template_GateOpsTransfer.dat", f"{model_folder}{filename}")
+        writer.fill(replacements_dict={
+            "in": in_node,
+            "out": out_node,
+            "transfer": trans_formatter.transfer_Qtrans(id)
+            }
+        )
+        transfer_file_list.append(f"{model_folder}{filename}")
+        transfer_counter +=1
+
+    for key, value in Qgen_big_dict.items():
+        id = key
+        in_node = value["in"]
+        out_node = value["out"]
+        filename = value["filename"]
+        transfer_file_list.append(f"{model_folder}{filename}")
+        writer = TemplateWriter(f"{template_folder}Template_GateOpsTransfer.dat", f"{model_folder}{filename}")
+        writer.fill(replacements_dict={
+            "in": in_node,
+            "out": out_node,
+            "transfer": trans_formatter.transfer_Qgen(id)
+            }
+        )
+        transfer_counter +=1
+    
+    # Initialize operation counter and input list
+    operation_counter = 0
+    operation_file_list = []
+
+    # Write gate operation override files
+    operation_formatter = OpFormatter(runinfo_xml, operation_netcdf)
+    for key, value in GateOps_big_dict.items():
+        id = key
+        storage = value["storage"]
+        filename = value.get("overwrite_filename")
+        if filename is None:
+            continue
+        writer = TemplateWriter(f"{template_folder}Template_GateOpsOverride.dat", f"{model_folder}{filename}")
+        writer.fill(replacements_dict={
+            "GateOverride": storage,
+            "Outflow": operation_formatter.override_outflow(id),
+            # "Opening": operation_formatter.override_opening(id),
+            }
+        )
+        operation_file_list.append(f"{model_folder}{filename}")
+        operation_counter +=1
+
+
+    # Initialize hydrograph counter and input list
+    hydrograph_counter = 0
+    hydrograph_file_list = []
+
+    # Write Recorded hydrograph files
+    hydrograph_formatter = HydrographFormatter(runinfo_xml, hydrograph_netcdf)
+    for key, value in Recorded_hydrograph_big_dict.items():
+        id = key
+        gauge = value["gauge"]
+        writer = TemplateWriter(f"{template_folder}Template_Recorded_Hydrograph.dat", f"{model_folder}{gauge}_Hydrograph.dat")
+        writer.fill(replacements_dict={
+            "GaugeName":gauge,
+            "catg_print_num": hydrograph_formatter.find_print_num(gauge, f"{template_folder}Template_Talbingo_with_Blowering.catg"),
+            "Recorded_Hydrograph": hydrograph_formatter.recorded_hydrograph(id)
+            }
+        )
+        hydrograph_file_list.append(f"{model_folder}{gauge}_Hydrograph.dat")
+        hydrograph_counter +=1
+
+
+    # Write multiGateOps file
+    multigateops_writer = TemplateWriter(f"{template_folder}Template_multiGateOps_UpperTumut_until_Jounama.dat", f"{model_folder}multiGateOps_UpperTumut_until_Jounama.dat")
+    multigateops_writer.fill(replacements_dict={
+        "gateops_number": gateops_counter,
+        "gateops_storages_and_files": FormatUtilities.format_lists(gateops_storage_and_file_list),
+        "transfer_number" : transfer_counter,
+        "transfer_timestep_hour": trans_formatter.timestep_hour,
+        "transfer_number_timestep": trans_formatter.num_data,
+        "transfer_files": FormatUtilities.format_lists(transfer_file_list),
+        "operation_number": operation_counter,
+        "operation_timestep_hour": operation_formatter.timestep_hour,
+        "operation_number_timestep": operation_formatter.num_data,
+        "operation_files": FormatUtilities.format_lists(operation_file_list),
+        }
+    )
+    # Write multiRecorded_hydrographs file
+    multiRecorded_hydrographs_writer = TemplateWriter(f"{template_folder}Template_multiRecorded_Hydrograph.dat", f"{model_folder}multiRecorded_hydrographs.dat")
+    multiRecorded_hydrographs_writer.fill(replacements_dict={
+        "num_hydrographs": hydrograph_counter,
+        "timestep": hydrograph_formatter.timestep_hour,
+        "num_timestep": hydrograph_formatter.num_data,
+        "Recorded_hydrograph_files": FormatUtilities.format_lists(hydrograph_file_list)
+        }
+    )
+
+if __name__ == "__main__":
+    runinfo_xml = r"C:\RORB_FEWS_Adapter\examples\to_rorb\runinfo.xml"
+    write_template_files(runinfo_xml)

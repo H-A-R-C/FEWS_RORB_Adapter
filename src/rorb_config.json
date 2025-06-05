@@ -1,0 +1,26 @@
+{
+    "rorb_isa_list": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    "rorb_bf_list": ["410571", "410542", "410545", "410572A", "410573", "410102"], 
+    "rorb_dam_list": ["410571", "410542", "410545", "410572A", "410573", "410102"], 
+    "rorb_snow_list": ["DeepCreek", "Spencers", "ThreeMileDam"],
+    "rorb_trans_list": ["600201", "410571", "600202", "410572B", "410542", "410545", "410572B"], 
+    "rorb_meteo_list": ["14"],
+    "rorb_subarea_calc_order_list": [
+    "C", "D", "E", "A", "B", "F", "G", "J", "I", "H", "K", "L", "M", "N", "O", "P", "Q", "T", "R", "S", "U", "V", "W", "X", "Y", "Z", 
+    "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AK1", "AK2", "AJ1", "AJ2", "AL1", "AL2", "AM1", "AM2", "AN1", "AN2", "AO1", 
+    "AO2", "AO3", "AO4", "AO5", "AP", "AQ", "AR", "AT", "AS", "AU", "AV", "AW", "AX", "AY", "AZ", "BA", "BB", "BC", "BD", "BE", "BF", 
+    "BG", "BH", "BI", "BJ", "BK", "BL", "BM", "BO", "BN", "BP", "BQ", "BR", "BU", "BV", "BT", "BW", "BX", "BY", "CB", "CC", "CD", "BZ", 
+    "CA", "CE", "CF", "CG", "CH", "CI", "CJ", "CK", "CL", "CM", "CN", "CO", "CP", "CQ", "CR"], 
+    "rorb_hydrograph_calc_order_list": ["410571", "410542", "410545", "410572A", "410573", "410102"],
+    "rorb_snow_elezone_priority_dict": {
+        "1": ["DeepCreek", "Spencers", "ThreeMileDam"],
+        "2": ["DeepCreek", "Spencers", "ThreeMileDam"],
+        "3": ["DeepCreek", "Spencers", "ThreeMileDam"],
+        "4": ["DeepCreek", "Spencers", "ThreeMileDam"],
+        "5": ["DeepCreek", "Spencers", "ThreeMileDam"],
+        "6": ["DeepCreek", "Spencers", "ThreeMileDam"],
+        "7": ["DeepCreek", "Spencers", "ThreeMileDam"],
+        "8": ["Spencers", "DeepCreek", "ThreeMileDam"],
+        "9": ["Spencers", "DeepCreek", "ThreeMileDam"] 
+    }
+}

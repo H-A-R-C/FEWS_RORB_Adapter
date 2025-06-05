@@ -1,0 +1,7 @@
+MULTIGATEOPS   !first line has to be what it shows
+{gateops_number}
+{gateops_storages_and_files}
+{transfer_number} ! Number of files
+{transfer_timestep_hour} ! Transfer Time Step (hours)
+{transfer_number_timestep} ! Number of timesteps
+{transfer_files}

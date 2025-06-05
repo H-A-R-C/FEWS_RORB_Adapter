@@ -1,0 +1,8 @@
+{
+    "timezone": "Australia/Sydney",
+    "rain_timestep_mins": 15,
+    "gateops_timestep_mins": 60,
+    "trans_timestep_mins": 60,
+    "operation_override_timestep_mins": 120,
+    "recorded_hydrograph_timestep_mins": 15
+}
