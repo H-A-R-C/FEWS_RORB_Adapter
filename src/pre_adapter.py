@@ -1,15 +1,6 @@
 from src.rorb_formatter import *
 from src.input_compiler import *
 
-# =============================================================================
-# Initialization
-# =============================================================================   
-# if len(sys.argv) != 2:
-#     raise logging.error("Invalid XML syntax.")
-# else:
-#     logging.info(f"{'runinfo_filepath'.ljust(25)} : {sys.argv[1]}")
-#     runinfo_xml = sys.argv[1]
-
 # Write RORB model input files
 def write_template_files(runinfo_xml):  
     runinfo_compiler = RunInfo(runinfo_xml)
@@ -19,9 +10,19 @@ def write_template_files(runinfo_xml):
     rain_netcdf = runinfo_compiler.inputRainFile
     transfer_netcdf = runinfo_compiler.inputTransferFile
     operation_netcdf = runinfo_compiler.inputOperationFile
-    hydrograph_netcdf = runinfo_compiler.inputHydrographFile
     model_folder = runinfo_compiler.model_folder
-    template_folder = runinfo_compiler.model_folder + "templates\\"
+    template_folder = f"{runinfo_compiler.model_folder}templates\\"
+
+    # Logging configuration
+    logging.basicConfig(
+        level=logging.WARNING, 
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S',  
+        handlers=[
+            logging.FileHandler(f"{model_folder}Pre_Adapter.log", mode='w'),
+            logging.StreamHandler()
+        ]
+    )
 
     # Write .par file 
     # Load model parameters and formatted ones
@@ -89,10 +90,9 @@ def write_template_files(runinfo_xml):
     # Write .dat file (gateops and transfer)
     # Load file mapping configuration
     file_mappping_config = JsonReader("file_mapping.json")
-    GateOps_big_dict= file_mappping_config.extract("GateOps_files_dict")
+    gateops_big_dict= file_mappping_config.extract("GateOps_files_dict")
     Qtrans_big_dict = file_mappping_config.extract("Qtrans_files_dict")
     Qgen_big_dict = file_mappping_config.extract("Qgen_files_dict")
-    Recorded_hydrograph_big_dict = file_mappping_config.extract("Recorded_hydrographs_dict")
 
     # Initialize gateops counter and input list
     gateops_counter =0
@@ -100,19 +100,24 @@ def write_template_files(runinfo_xml):
 
     # Write gateops files
     gateops = GateOpsFormatter(state_xml)
-    for key, value in GateOps_big_dict.items():
+    for key, value in gateops_big_dict.items():
         id = key
         storage = value["storage"]
-        filename = value["filename"]
+        procedure = param_compiler.gateops[key].procedure
+        if procedure == 1 or procedure == 3: 
+            filename = value["filename_auto"]
+        elif procedure == 2 or procedure == 4 or procedure == 5:
+            filename = value["filename_open"]
+
         writer = TemplateWriter(f"{template_folder}Template_{filename}", f"{model_folder}{filename}")
         writer.fill(replacements_dict={
-            "GateOpsTimeStep": gateops.timestep_hour,
+            "gateops_timestep_minute": gateops.timestep_hour,
             "initial_reservoir_storage": gateops.initial_storage(id, f"{template_folder}Template_{filename}"),
             }
         )
         gateops_storage_and_file_list.append(storage)
         gateops_storage_and_file_list.append(f"{model_folder}{filename}")
-        gateops_counter +=1
+        gateops_counter += 1
 
     # Initialize transfer counter and input list
     transfer_counter = 0
@@ -156,41 +161,20 @@ def write_template_files(runinfo_xml):
 
     # Write gate operation override files
     operation_formatter = OpFormatter(runinfo_xml, operation_netcdf)
-    for key, value in GateOps_big_dict.items():
+    gateoverride_list = operation_formatter.get_dam_ids()
+    for key, value in gateops_big_dict.items():
         id = key
         storage = value["storage"]
-        filename = value.get("overwrite_filename")
-        if filename is None:
-            continue
-        writer = TemplateWriter(f"{template_folder}Template_GateOpsOverride.dat", f"{model_folder}{filename}")
-        writer.fill(replacements_dict={
-            "GateOverride": storage,
-            "Outflow": operation_formatter.override_outflow(id),
-            # "Opening": operation_formatter.override_opening(id),
-            }
-        )
-        operation_file_list.append(f"{model_folder}{filename}")
-        operation_counter +=1
-
-
-    # Initialize hydrograph counter and input list
-    hydrograph_counter = 0
-    hydrograph_file_list = []
-
-    # Write Recorded hydrograph files
-    hydrograph_formatter = HydrographFormatter(runinfo_xml, hydrograph_netcdf)
-    for key, value in Recorded_hydrograph_big_dict.items():
-        id = key
-        gauge = value["gauge"]
-        writer = TemplateWriter(f"{template_folder}Template_Recorded_Hydrograph.dat", f"{model_folder}{gauge}_Hydrograph.dat")
-        writer.fill(replacements_dict={
-            "GaugeName":gauge,
-            "catg_print_num": hydrograph_formatter.find_print_num(gauge, f"{template_folder}Template_Talbingo_with_Blowering.catg"),
-            "Recorded_Hydrograph": hydrograph_formatter.recorded_hydrograph(id)
-            }
-        )
-        hydrograph_file_list.append(f"{model_folder}{gauge}_Hydrograph.dat")
-        hydrograph_counter +=1
+        filename = value.get("overwrite_filename")   
+        if id in gateoverride_list and filename:
+            writer = TemplateWriter(f"{template_folder}Template_GateOpsOverride.dat", f"{model_folder}{filename}")
+            writer.fill(replacements_dict={
+                "gate_override": storage,
+                "outflow_opening": operation_formatter.override_outflow_and_opening(id),
+                }
+            )
+            operation_file_list.append(f"{model_folder}{filename}")
+            operation_counter +=1
 
 
     # Write multiGateOps file
@@ -208,16 +192,27 @@ def write_template_files(runinfo_xml):
         "operation_files": FormatUtilities.format_lists(operation_file_list),
         }
     )
-    # Write multiRecorded_hydrographs file
-    multiRecorded_hydrographs_writer = TemplateWriter(f"{template_folder}Template_multiRecorded_Hydrograph.dat", f"{model_folder}multiRecorded_hydrographs.dat")
-    multiRecorded_hydrographs_writer.fill(replacements_dict={
-        "num_hydrographs": hydrograph_counter,
-        "timestep": hydrograph_formatter.timestep_hour,
-        "num_timestep": hydrograph_formatter.num_data,
-        "Recorded_hydrograph_files": FormatUtilities.format_lists(hydrograph_file_list)
-        }
-    )
+
+def write_run_batch(runinfo_xml):
+    runinfo_compiler = RunInfo(runinfo_xml)
+    model_folder = runinfo_compiler.model_folder
+    rorb_exe = runinfo_compiler.rorb_exe
+    par_file = f"{model_folder}RORB_CMD.par"
+
+    # Create the run batch file content
+    batch_content = f"""@echo off
+    set model_folder={model_folder}
+    cd /d %model_folder%
+    {rorb_exe} {par_file}"""
+
+    # Write the batch file
+    batch_file_path = f"{model_folder}RUN_RORB.bat"
+    with open(batch_file_path, 'w') as batch_file:
+        batch_file.write(batch_content)
+
+
 
 if __name__ == "__main__":
     runinfo_xml = r"C:\RORB_FEWS_Adapter\examples\to_rorb\runinfo.xml"
     write_template_files(runinfo_xml)
+    write_run_batch(runinfo_xml)

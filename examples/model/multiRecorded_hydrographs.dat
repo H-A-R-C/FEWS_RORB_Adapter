@@ -1,5 +1,0 @@
-2	!number of hydrographs that are to be overwritten
-0.25	!Transfer Time Step (hrs)
-54	! Number of timesteps
-C:\RORB_FEWS_Adapter\examples\model\TumutPondageToLobsHole_Hydrograph.dat
-C:\RORB_FEWS_Adapter\examples\model\YarrangobillyRiverAtRavine_Hydrograph.dat

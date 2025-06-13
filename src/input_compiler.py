@@ -76,8 +76,6 @@ class RunInfo:
         self.fromrorb_folder = xml.extract_properties_value_from_key("fromrorb_folder")
         self.rorb_folder = xml.extract_properties_value_from_key("rorb_folder")
         self.rorb_exe = xml.extract_properties_value_from_key("rorb_exe")
-        self.catg_file = xml.extract_properties_value_from_key("catg_file")
-        self.stm__file = xml.extract_properties_value_from_key("stm__file")
 
 # ----------------------------------------------------------------------------
 # Compile Params.xml
@@ -96,6 +94,10 @@ class BaseflowSubManager:
     start: Optional[float] = None
 
 @dataclass
+class GateOpsSubManager:
+    procedure: Optional[int] = None
+
+@dataclass
 class Params(RORBConfig):
     """
     Class to compile params.xml file to a dataclass ParamsManager
@@ -112,6 +114,7 @@ class Params(RORBConfig):
         RORBConfig.__init__(self) 
         self.isa = self._compile_isa_groups()
         self.bf = self._compile_baseflow()
+        self.gateops = self._compile_gateops()
         self._compile_settings()
 
     def _compile_settings(self):
@@ -145,6 +148,14 @@ class Params(RORBConfig):
             )
         return bf_dict    
 
+    def _compile_gateops(self) -> Dict[str, GateOpsSubManager]:
+        go_dict = {}
+        xml = XMLReader(self.params_xml)
+        for i in self.rorb_dam_list:
+            go_dict[f"{i}"] = GateOpsSubManager(
+                procedure=xml.extract_rorb_parameter_value_with_conditions('Gate parameters', 'rorbId', f"{i}", 'rorbGate', 'intValue'),
+            )
+        return go_dict    
 
 # ----------------------------------------------------------------------------
 # Compile State.xml
@@ -195,7 +206,7 @@ class State(RORBConfig):
 
 
 # ----------------------------------------------------------------------------
-# Compile Rain.xml
+# Compile Rain.nc
 # ----------------------------------------------------------------------------
 @dataclass
 class Rain(RORBConfig):
@@ -229,7 +240,7 @@ class Rain(RORBConfig):
 
 
 # ----------------------------------------------------------------------------
-# Compile Transfer.xml
+# Compile Transfer.nc
 # ----------------------------------------------------------------------------
 @dataclass
 class TransferManager:
@@ -265,7 +276,7 @@ class Transfer(RORBConfig):
 
 
 # ----------------------------------------------------------------------------
-# Compile Meteo.xml
+# Compile Meteo.nc
 # ----------------------------------------------------------------------------
 @dataclass
 class MeteoManager:
@@ -307,43 +318,14 @@ class Meteo(RORBConfig):
 
         return meteo_dict
 
-# ----------------------------------------------------------------------------
-# Compile Hydrograph.xml
-# ----------------------------------------------------------------------------
-@dataclass
-class Hydrograph(RORBConfig):
-    """
-    Class to compile hydrograph.nc file to a dictionary of hydrograph data
-    :param hydrograph_netcdf: Path to the hydrograph.nc file
-
-    Example Usage:
-    hydrograph = Hydrograph(hydrograph_netcdf)
-    hydrograph.gauge['YarrangobillyRiverAtRavine']
-    """
-    hydrograph_netcdf: str
-
-    def __post_init__(self):
-        RORBConfig.__init__(self)
-        self.gauge = self._compile_hydrograph()
-
-    def _compile_hydrograph(self) -> Dict[str, List[float]]:
-        netcdf = NetCDFReader(self.hydrograph_netcdf)
-        station_extracted_lst = netcdf.extract_variable_list('station_id')
-
-        hydrograph_dict = {}
-        for i in station_extracted_lst:
-            hydrograph_dict[f"{i}"] = netcdf.extract_variable_value_with_conditions('station_id', i, 'H_observed', missVal_attribute='_FillValue'),
-        
-        return hydrograph_dict
-
 
 # ----------------------------------------------------------------------------
-# Compile Operation.xml
+# Compile Operation.nc
 # ----------------------------------------------------------------------------
 @dataclass
 class OperationManager:
-    Outflow: Optional[List[float]] = None
-    Opening: Optional[List[float]] = None
+    outflow: Optional[List[float]] = None
+    opening: Optional[List[float]] = None
 
 @dataclass
 class Operation(RORBConfig):
@@ -368,22 +350,25 @@ class Operation(RORBConfig):
         operation_dict = {}
         for i in station_extracted_lst:
             operation_dict[f"{i}"] = OperationManager(
-                Outflow=netcdf.extract_variable_value_with_conditions('station_id', i, 'Outflow', missVal_attribute='_FillValue'),
-                Opening=netcdf.extract_variable_value_with_conditions('station_id', i, 'GateOpening', missVal_attribute='_FillValue')
+                outflow=netcdf.extract_variable_value_with_conditions('station_id', i, 'Outflow', missVal_attribute='_FillValue'),
+                opening=netcdf.extract_variable_value_with_conditions('station_id', i, 'GateOpening', missVal_attribute='_FillValue')
             )
         return operation_dict  
-
-# if __name__ == '__main__':
+    
+if __name__ == '__main__':
     # runinfo_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\runinfo.xml"
     # runinfo = RunInfo(runinfo_xml)
     # print(runinfo.inputStateFile)
     # print(runinfo.inputMeteoFile)
 
-    # params_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\params.xml"
-    # params = Params(params_xml)
-    # print(params.num_burst)
-    # print(params.isa)  # Accessing data directly
-    # print(params.isa["1"].IL)
+    params_xml = r"C:\RORB_FEWS_Adapter\examples\to_rorb\params.xml"
+    params = Params(params_xml)
+    print(params.gateops["410542"].procedure)
+
+    operation_nc = r"C:\RORB_FEWS_Adapter\examples\to_rorb\input_operation.nc"
+    operation = Operation(operation_nc)
+    for key, value in operation.dam.items():
+        print(f"{key}")
 
     # state_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_state.xml"
     # state = State(state_xml)

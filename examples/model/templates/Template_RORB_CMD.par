@@ -10,5 +10,4 @@ Num burst:{num_burst}
 {loss_params_isa}
 Gateops  :{gate_file}
 {snow_file}
-{matching_file}
 # END

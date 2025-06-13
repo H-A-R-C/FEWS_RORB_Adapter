@@ -48,7 +48,6 @@ class ConfigReader:
         self.gateops_timestep = self.fewsconfig.extract("gateops_timestep_mins")
         self.trans_timestep = self.fewsconfig.extract("trans_timestep_mins")
         self.operation_timestep = self.fewsconfig.extract("operation_override_timestep_mins")
-        self.hydrograph_timestep = self.fewsconfig.extract("recorded_hydrograph_timestep_mins")
 
 
 # ----------------------------------------------------------------------------
@@ -78,7 +77,7 @@ class PARFormatter(ConfigReader):
         for id in self.rorb_isa_list:
             isa = isa_params.get(f"{id}")
             if isa:
-                result_string += f"ISA  {id:<3}: {isa.Kc}, {isa.m}\n"
+                result_string += f"ISA  {id:<3} :{isa.Kc}, {isa.m}\n"
 
         return result_string.strip()
     
@@ -90,7 +89,7 @@ class PARFormatter(ConfigReader):
         for id in self.rorb_isa_list:
             isa = isa_params.get(f"{id}")
             if isa:
-                result_string += f"ISA  {id:<3}: {isa.IL}, {isa.CL}\n"
+                result_string += f"ISA  {id:<3} :{isa.IL}, {isa.CL}\n"
 
         return result_string.strip()
     
@@ -303,7 +302,7 @@ class SNOWFormatter(ConfigReader):
             selected_val = FormulatUtilities.select_from_priority(data_list=elezone_list, missVal=None)
             if selected_val is None:
                 selected_val = 0
-                logging.warning(f"Missing {param_name} for elezone {elezone}. Default value is set to 0")
+                logging.warning(f"Missing {param_name} for elezone {elezone}. Default value is set to 0.")
             
             # Add the selected value to the dictionary
             param_dict[elezone] = selected_val
@@ -427,9 +426,9 @@ class OpFormatter(ConfigReader):
         # Perform initial data calculations
         self.timestep_hour = self.operation_timestep/60
     
-    def override_outflow(self, id):
-        Outflow = self.operation_inst.dam.get(f"{id}").Outflow
-        Opening = self.operation_inst.dam.get(f"{id}").Opening
+    def override_outflow_and_opening(self, id):
+        Outflow = self.operation_inst.dam.get(f"{id}").outflow
+        Opening = self.operation_inst.dam.get(f"{id}").opening
         formatted_outflow = FormatUtilities.format_floats(Outflow, decimal=4, items_per_line=1, end_string="")
         formatted_opening = FormatUtilities.format_floats(Opening, decimal=1, items_per_line=1, end_string="")
 
@@ -442,52 +441,9 @@ class OpFormatter(ConfigReader):
         result = "\n".join(combined_pairs)
         self.num_data = len(Outflow)
         return result
-# ----------------------------------------------------------------------------
-# Format .dat file (gate operation override)
-# ----------------------------------------------------------------------------
-class HydrographFormatter(ConfigReader):
-    def __init__(self, runinfo_xml, hydrograph_netcdf):
-        super().__init__()  # Initialize base class
-
-        # Load data models
-        self.runinfo = RunInfo(runinfo_xml)
-        self.gauge_inst = Hydrograph(hydrograph_netcdf)
-        
-        # Perform initial data calculations
-        self.timestep_hour = self.hydrograph_timestep/60
-
-    def find_print_num(self, gauge, catg_path):
-        try:
-            with open(catg_path, "r") as f:
-                lines = f.readlines()
-                
-            print_keywords = [
-                "7.2                                              ,                                  PRINT",
-                "7                                                ,                                  PRINT"
-            ]
-
-            catg_print_num = 0
-            
-            for i, line in enumerate(lines):
-                if line.startswith("C"):
-                    continue  # Ignore lines starting with "C"
-
-                if gauge in line:
-                    break
-
-                if any(keyword in line for keyword in print_keywords):
-                    catg_print_num += 1
-            
-            return catg_print_num
-        except Exception as e:
-            raise RuntimeError(f"An error occurred while processing the CATG file: {e}")
-
-    def recorded_hydrograph(self, id):
-        recorded_hydrograph = self.gauge_inst.gauge.get(f"{id}")
-        recorded_hydrograph = recorded_hydrograph[0]
-        self.num_data = len(recorded_hydrograph)
-        return FormatUtilities.format_floats(recorded_hydrograph, decimal=14, items_per_line=1, end_string="")
-
+    
+    def get_dam_ids(self):
+        return list(self.operation_inst.dam.keys())
 
 # =============================================================================
 # Formulat Utilities

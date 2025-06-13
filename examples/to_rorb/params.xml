@@ -26,11 +26,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -56,11 +56,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -86,11 +86,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -116,11 +116,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -146,11 +146,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -176,11 +176,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -206,11 +206,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -236,11 +236,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -266,11 +266,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -296,11 +296,11 @@
         </parameter>
         <parameter id="rorbIL1" name="Initial Loss">
             <description>{rorbIL1} Initial Loss [mm]</description>
-            <dblValue>40.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbCL1" name="Continuing Loss">
             <description>{rorbCL1} Continuing Loss [mm/hr]</description>
-            <dblValue>2.0</dblValue>
+            <dblValue>0</dblValue>
         </parameter>
         <parameter id="rorbIL2" name="Initial Loss">
             <description>{rorbIL2} Initial Loss burst 2 [mm]</description>
@@ -565,6 +565,72 @@
         <parameter id="rorbBFstart" name="Baseflow Start Datetime of Scaling">
             <description>{rorbBF} Baseflow Start Datetime of Scaling relative to start of run [hr]</description>
             <intValue>21</intValue>
+        </parameter>
+    </group>
+    <group id="Gate parameters" readonly="false">
+        <model>reservoir_model</model>
+        <parameter id="rorbId" name="Rorb location id">
+            <stringValue>410571</stringValue>
+        </parameter>
+        <parameter id="rorbGate" name="Rorb gate ops procedure">
+            <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
+            <intValue>2</intValue>
+            <dblValue></dblValue>
+        </parameter>
+    </group>
+    <group id="Gate parameters" readonly="false">
+        <model>reservoir_model</model>
+        <parameter id="rorbId" name="Rorb location id">
+            <stringValue>410542</stringValue>
+        </parameter>
+        <parameter id="rorbGate" name="Rorb gate ops procedure">
+            <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
+            <intValue>2</intValue>
+            <dblValue></dblValue>
+        </parameter>
+    </group>
+    <group id="Gate parameters" readonly="false">
+        <model>reservoir_model</model>
+        <parameter id="rorbId" name="Rorb location id">
+            <stringValue>410545</stringValue>
+        </parameter>
+        <parameter id="rorbGate" name="Rorb gate ops procedure">
+            <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
+            <intValue>1</intValue>
+            <dblValue></dblValue>
+        </parameter>
+    </group>
+    <group id="Gate parameters" readonly="false">
+        <model>reservoir_model</model>
+        <parameter id="rorbId" name="Rorb location id">
+            <stringValue>410572A</stringValue>
+        </parameter>
+        <parameter id="rorbGate" name="Rorb gate ops procedure">
+            <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
+            <intValue>2</intValue>
+            <dblValue></dblValue>
+        </parameter>
+    </group>
+    <group id="Gate parameters" readonly="false">
+        <model>reservoir_model</model>
+        <parameter id="rorbId" name="Rorb location id">
+            <stringValue>410573</stringValue>
+        </parameter>
+        <parameter id="rorbGate" name="Rorb gate ops procedure">
+            <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
+            <intValue>2</intValue>
+            <dblValue></dblValue>
+        </parameter>
+    </group>
+    <group id="Gate parameters" readonly="false">
+        <model>reservoir_model</model>
+        <parameter id="rorbId" name="Rorb location id">
+            <stringValue>410102</stringValue>
+        </parameter>
+        <parameter id="rorbGate" name="Rorb gate ops procedure">
+            <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
+            <intValue>2</intValue>
+            <dblValue></dblValue>
         </parameter>
     </group>
 </parameters>

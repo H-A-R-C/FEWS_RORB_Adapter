@@ -2,34 +2,39 @@
     "GateOps_files_dict": {
         "410571" : {
             "storage": "Happy Jacks Pondage",
-            "filename": "GateOps_HappyJacks.dat",
+            "filename_open": "GateOps_Open_HappyJacks.dat",
+            "overwrite_filename": "HappyJacks_Outflow.dat",
             "csv_filename": "Gated_dam_Happy Jacks Pondage_Data.csv"
         }, 
         "410542" : {
             "storage": "Tumut Dam Pondage",
-            "filename": "GateOps_TumutPond.dat",
+            "filename_open": "GateOps_Open_TumutPond.dat",
             "overwrite_filename": "TumutPond_Outflow.dat",
             "csv_filename": "Gated_dam_Tumut Dam Pondage_Data.csv"
         },
         "410545" : {
             "storage": "Tumut 2 Pondage",
-            "filename": "GateOps_Tumut2.dat",
+            "filename_auto": "GateOps_Auto_Tumut2.dat",
+            "filename_open": "GateOps_Open_Tumut2.dat",
             "overwrite_filename": "Tumut2_Outflow.dat",
             "csv_filename": "Gated_dam_Tumut 2 Pondage_Data.csv"
         },
         "410572A": {
             "storage": "Talbingo Reservoir",
-            "filename": "GateOps_Talbingo.dat",
+            "filename_open": "GateOps_Open_Talbingo.dat",
+            "overwrite_filename": "Talbingo_Outflow.dat",
             "csv_filename": "Gated_dam_Talbingo Reservoir_Data.csv"
         },
         "410573" : {
             "storage": "Jounama_Pondage",
-            "filename": "GateOps_Jounama.dat",
+            "filename_open": "GateOps_Open_Jounama.dat",
+            "overwrite_filename": "Jounama_Outflow.dat",
             "csv_filename": "Gated_dam_Jounama_Pondage_Data.csv"
         },
         "410102" : {
             "storage": "Blowering Dam",
-            "filename": "GateOps_Blowering.dat",
+            "filename_open": "GateOps_Open_Blowering.dat",
+            "overwrite_filename": "Blowering_Outflow.dat",
             "csv_filename": "Gated_dam_Blowering Dam_Data.csv"
         }
     },
@@ -71,15 +76,6 @@
             "in" : "Tumut Dam Pondage",
             "out" : "None",
             "filename" : "GateOpsTransfer_Tooma_TumutPond.dat"
-        }
-    },
-    "Recorded_hydrographs_dict": {
-        "410542": {
-            "gauge" : "TumutPondageToLobsHole"
-
-        },
-        "410574" : {
-            "gauge" : "YarrangobillyRiverAtRavine"
         }
     }
 }

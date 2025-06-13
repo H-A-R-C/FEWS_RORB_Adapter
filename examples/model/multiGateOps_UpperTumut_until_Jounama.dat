@@ -1,17 +1,17 @@
 MULTIGATEOPS   !first line has to be what it shows
 6
 Happy Jacks Pondage
-C:\RORB_FEWS_Adapter\examples\model\GateOps_HappyJacks.dat
+C:\RORB_FEWS_Adapter\examples\model\GateOps_Open_HappyJacks.dat
 Tumut Dam Pondage
-C:\RORB_FEWS_Adapter\examples\model\GateOps_TumutPond.dat
+C:\RORB_FEWS_Adapter\examples\model\GateOps_Open_TumutPond.dat
 Tumut 2 Pondage
-C:\RORB_FEWS_Adapter\examples\model\GateOps_Tumut2.dat
+C:\RORB_FEWS_Adapter\examples\model\GateOps_Auto_Tumut2.dat
 Talbingo Reservoir
-C:\RORB_FEWS_Adapter\examples\model\GateOps_Talbingo.dat
+C:\RORB_FEWS_Adapter\examples\model\GateOps_Open_Talbingo.dat
 Jounama_Pondage
-C:\RORB_FEWS_Adapter\examples\model\GateOps_Jounama.dat
+C:\RORB_FEWS_Adapter\examples\model\GateOps_Open_Jounama.dat
 Blowering Dam
-C:\RORB_FEWS_Adapter\examples\model\GateOps_Blowering.dat
+C:\RORB_FEWS_Adapter\examples\model\GateOps_Open_Blowering.dat
 7 ! Number of files
 1.0 ! Transfer Time Step (hours)
 193 ! Number of timesteps

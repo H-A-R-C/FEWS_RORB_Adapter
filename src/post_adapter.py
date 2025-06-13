@@ -17,7 +17,7 @@ def read_rorb_outputs(runinfo_xml):
     rainfall_excess_xml = runinfo_compiler.outputRainfallExcess
     gauge_flow_xml = runinfo_compiler.outputGaugeFlow
     fromrorb_folder = runinfo_compiler.fromrorb_folder
-    rorb_outfile = runinfo_compiler.model_folder + runinfo_compiler.catg_file.replace('.catg', '_') + runinfo_compiler.stm__file.replace('.stm', '.out')
+    rorb_outfile = f"{runinfo_compiler.model_folder}Talbingo_with_Blowering_Rainfall.out" 
     csv_directory = Path(fromrorb_folder).parent
 
     # Initialize XMLWriter and rename columns
@@ -37,7 +37,7 @@ def read_rorb_outputs(runinfo_xml):
     for key, value in GateOps_big_dict.items():
             location_id = key
             csv_filename = value['csv_filename']
-            csv_filepath = os.path.join(csv_directory, csv_filename)
+            csv_filepath = os.path.join(runinfo_compiler.model_folder, csv_filename)
             csv = OutputCSVReader(location_id=key, level_csv=csv_filepath, event_start_str=startDateTime)
             temp_xml = f"{fromrorb_folder}{csv_filename}.xml"
             xml_writer.write_df_to_xml(csv.read_and_process_level_csv(rename_columns), temp_xml)
@@ -110,5 +110,5 @@ def read_rorb_outputs(runinfo_xml):
     xml_writer.write_df_to_xml(selected_hydrographs, output_xml)
 
 if __name__ == "__main__":
-    runinfo_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\runinfo.xml"
+    runinfo_xml = r"C:\RORB_FEWS_Adapter\examples\to_rorb\runinfo.xml"
     read_rorb_outputs(runinfo_xml)
