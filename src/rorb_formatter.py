@@ -405,7 +405,11 @@ class TRANSFormatter(ConfigReader):
     def transfer_Qgen(self, id):
         Qgen = self.trans_inst.trans.get(f"{id}").Qgen
         return FormatUtilities.format_floats(Qgen, decimal=0, items_per_line=1, end_string="")
-
+    
+    def transfer_Qoutlet(self, id):
+        Qriveroutlet = self.trans_inst.trans.get(f"{id}").Qoutlet
+        return FormatUtilities.format_floats(Qriveroutlet, decimal=0, items_per_line=1, end_string="")
+    
 
 # ----------------------------------------------------------------------------
 # Format .dat file (gate operation override)

@@ -93,6 +93,7 @@ def write_template_files(runinfo_xml):
     gateops_big_dict= file_mappping_config.extract("GateOps_files_dict")
     Qtrans_big_dict = file_mappping_config.extract("Qtrans_files_dict")
     Qgen_big_dict = file_mappping_config.extract("Qgen_files_dict")
+    Qoutlet_big_dict = file_mappping_config.extract("Qoutlet_files_dict")
 
     # Initialize gateops counter and input list
     gateops_counter =0
@@ -151,6 +152,21 @@ def write_template_files(runinfo_xml):
             "in": in_node,
             "out": out_node,
             "transfer": trans_formatter.transfer_Qgen(id)
+            }
+        )
+        transfer_counter +=1
+
+    for key, value in Qoutlet_big_dict.items():
+        id = key
+        in_node = value["in"]
+        out_node = value["out"]
+        filename = value["filename"]
+        transfer_file_list.append(f"{model_folder}{filename}")
+        writer = TemplateWriter(f"{template_folder}Template_GateOpsTransfer.dat", f"{model_folder}{filename}")
+        writer.fill(replacements_dict={
+            "in": in_node,
+            "out": out_node,
+            "transfer": trans_formatter.transfer_Qoutlet(id)
             }
         )
         transfer_counter +=1

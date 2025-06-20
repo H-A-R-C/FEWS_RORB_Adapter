@@ -77,7 +77,41 @@
             "out" : "None",
             "filename" : "GateOpsTransfer_Tooma_TumutPond.dat"
         }
+    },
+
+    "Qoutlet_files_dict": {
+        "410571" : {
+            "in" : "Downstream",
+            "out" : "Happy Jacks Pondage",
+            "filename" : "GateOpsTransfer_HappyJacksRiverOutlet.dat"
+        },
+        "410542" : {
+            "in" : "Downstream",
+            "out" : "Tumut Dam Pondage",
+            "filename" : "GateOpsTransfer_TumutPondRiverOutlet.dat"
+        },
+        "410545": {
+            "in" : "Downstream",
+            "out" : "Tumut 2 Pondage",
+            "filename" : "GateOpsTransfer_Tumut2RiverOutlet.dat"
+        },
+        "410572A" : {
+            "in" : "Downstream",
+            "out" : "Talbingo Reservoir",
+            "filename" : "GateOpsTransfer_TalbingoRiverOutlet.dat"
+        },
+        "410573" : {
+            "in" : "Downstream",
+            "out" : "Tumut Dam Pondage",
+            "filename" : "GateOpsTransfer_JounamaRiverOutlet.dat"
+        },
+        "410102" : {
+            "in" : "Downstream",
+            "out" : "Blowering Dam",
+            "filename" : "GateOpsTransfer_BloweringRiverOutlet.dat"
+        }
     }
+
 }
 
 
