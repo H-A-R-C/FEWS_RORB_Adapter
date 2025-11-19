@@ -6,44 +6,32 @@ RORB model adapter developed for Snowy Hydrological Forecasting System (S-HEWS)
 ---
 ## Installation
 **1. Clone the repository**
-Start by cloning the repository to your local machine:
 ```bash
 git clone https://github.com/H-A-R-C/FEWS_RORB_Adapter.git
+cd FEWS_RORB_Adapter
 ```
 
-**2. Create a python virtual environment**
-Navigate to the RORB-FEWS-adapter folder and create a virtual environment:
+**2. Install uv (one-time)**
 ```bash
-python -m venv .venv
+pip install uv
 ```
 
-**3. Activate the virtual environment**
-On Windows:
+**3. Sync dependencies**
+Create the virtual environment and install runtime + dev dependencies in one go:
+```bash
+uv sync
+```
+The default environment lives in `.venv`. Activate it on Windows with:
 ```bash
 .\.venv\Scripts\activate
 ```
 
-**4. Install project dependencies**
-
-Install the necessary dependencies for module access:
-
+**4. Editable installs / extras**
+If you prefer to stick with pip tooling use:
 ```bash
-pip install .
+pip install -e ".[dev]"
 ```
-
-For development purposes, install additional development dependencies:
-
-```bash
-pip install .[dev]
-```
-
-**5. Update project dependencies**
-
-Before packaging, ensure that all project dependencies are up-to-date. Navigate to the project directory and install the latest dependencies:
-
-```bash
-pip install -e . 
-```
+Both paths pull the same dependencies defined in `pyproject.toml`.
 
 **6. Distribute the executable**
  
@@ -61,6 +49,13 @@ Package the RORB adapter scripts into standalone executables using PyInstaller. 
 ```bash
 pyinstaller pre_adapter_talbingo.spec
 pyinstaller post_adapter_talbingo.spec
+```
+
+To produce reproducible builds from scratch:
+```bash
+uv pip install pyinstaller
+uv run pyinstaller pre_adapter_talbingo.spec
+uv run pyinstaller post_adapter_talbingo.spec
 ```
 
 ---

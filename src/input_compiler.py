@@ -270,8 +270,8 @@ class Transfer(RORBConfig):
         for i in self.rorb_trans_list:
             trans_dict[f"{i}"] = TransferManager(
                 Qtrans=netcdf.extract_variable_value_with_conditions('station_id', f"{i}", 'Qtrans_forecast', missVal_attribute='_FillValue'),
-                Qgen=netcdf.extract_variable_value_with_conditions('station_id', f"{i}", 'Qgen_forecast', missVal_attribute='_FillValue'),
-                Qoutlet=netcdf.extract_variable_value_with_conditions('station_id', f"{i}", 'Qoutlet_forecast', missVal_attribute='_FillValue')
+                Qgen=netcdf.extract_variable_value_with_conditions('station_id', f"{i}", 'Qgen_forecast', missVal_attribute='_FillValue')
+                # Qoutlet=netcdf.extract_variable_value_with_conditions('station_id', f"{i}", 'Qoutlet_forecast', missVal_attribute='_FillValue')
             )
         return trans_dict  
 

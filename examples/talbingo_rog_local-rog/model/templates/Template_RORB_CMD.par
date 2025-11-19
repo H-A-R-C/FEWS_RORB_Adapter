@@ -1,0 +1,13 @@
+# BEGIN
+Cat file :{catg_file}
+Stm file :{stm_file}
+Lumped kc:F
+Verbosity:3
+Lossmodel:1
+Num ISA  :10
+{routing_params_isa}
+Num burst:{num_burst}
+{loss_params_isa}
+Gateops  :{gate_file}
+{snow_file}
+# END
