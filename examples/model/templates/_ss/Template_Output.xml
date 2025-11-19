@@ -1,3 +1,0 @@
-﻿<TimeSeries xmlns="http://www.wldelft.nl/fews/PI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wldelft.nl/fews/PI http://fews.wldelft.nl/schemas/version1.0/pi-schemas/pi_timeseries.xsd" version="1.2">
-    <daylightSavingObservingTimeZone>AET</daylightSavingObservingTimeZone>
-</TimeSeries>

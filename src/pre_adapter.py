@@ -1,6 +1,46 @@
 from src.rorb_formatter import *
 from src.input_compiler import *
 
+
+def _gateops_filename(config_entry, procedure):
+    """
+    Determine which template filename to use for a dam based on its procedure.
+    Falls back to the open template when an automatic template is unavailable.
+    """
+    if procedure in (1, 3):
+        return config_entry.get("filename_auto") or config_entry["filename_open"]
+    if procedure in (2, 4, 5):
+        return config_entry["filename_open"]
+    raise ValueError(f"Unsupported GateOps procedure '{procedure}'")
+
+
+def write_gateops_files(template_folder, model_folder, gateops_big_dict, gateops_formatter, param_compiler):
+    """
+    Generate per-dam GateOps files and return metadata for the multi-gate template.
+    """
+    gateops_counter = 0
+    gateops_storage_and_file_list = []
+
+    for dam_id, config in gateops_big_dict.items():
+        procedure = param_compiler.gateops[dam_id].procedure
+        filename = _gateops_filename(config, procedure)
+        template_path = f"{template_folder}Template_{filename}"
+        model_path = f"{model_folder}{filename}"
+
+        writer = TemplateWriter(template_path, model_path)
+        writer.fill(
+            replacements_dict={
+                "gateops_timestep_minute": gateops_formatter.timestep_hour,
+                "initial_reservoir_storage": gateops_formatter.initial_storage(dam_id, template_path),
+            }
+        )
+
+        gateops_storage_and_file_list.append(config["storage"])
+        gateops_storage_and_file_list.append(model_path)
+        gateops_counter += 1
+
+    return gateops_counter, gateops_storage_and_file_list
+
 # Write RORB model input files
 def write_template_files(runinfo_xml):  
     runinfo_compiler = RunInfo(runinfo_xml)
@@ -95,30 +135,14 @@ def write_template_files(runinfo_xml):
     Qgen_big_dict = file_mappping_config.extract("Qgen_files_dict")
     Qoutlet_big_dict = file_mappping_config.extract("Qoutlet_files_dict")
 
-    # Initialize gateops counter and input list
-    gateops_counter =0
-    gateops_storage_and_file_list = []
-
-    # Write gateops files
     gateops = GateOpsFormatter(state_xml)
-    for key, value in gateops_big_dict.items():
-        id = key
-        storage = value["storage"]
-        procedure = param_compiler.gateops[key].procedure
-        if procedure == 1 or procedure == 3: 
-            filename = value["filename_auto"]
-        elif procedure == 2 or procedure == 4 or procedure == 5:
-            filename = value["filename_open"]
-
-        writer = TemplateWriter(f"{template_folder}Template_{filename}", f"{model_folder}{filename}")
-        writer.fill(replacements_dict={
-            "gateops_timestep_minute": gateops.timestep_hour,
-            "initial_reservoir_storage": gateops.initial_storage(id, f"{template_folder}Template_{filename}"),
-            }
-        )
-        gateops_storage_and_file_list.append(storage)
-        gateops_storage_and_file_list.append(f"{model_folder}{filename}")
-        gateops_counter += 1
+    gateops_counter, gateops_storage_and_file_list = write_gateops_files(
+        template_folder=template_folder,
+        model_folder=model_folder,
+        gateops_big_dict=gateops_big_dict,
+        gateops_formatter=gateops,
+        param_compiler=param_compiler,
+    )
 
     # Initialize transfer counter and input list
     transfer_counter = 0

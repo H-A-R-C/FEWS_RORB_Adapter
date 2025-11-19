@@ -523,6 +523,7 @@ class TemplateWriter:
                 file.write(filled_template)
 
         except Exception as e:
+            
             logging.error(f"Failed to write to '{self.output_filepath}': {e}")
     
     def clear_empty_lines(self):
