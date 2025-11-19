@@ -558,17 +558,17 @@ class FormatUtilities:
     
 
 # if __name__ == '__main__':
-#     runinfo_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\runinfo.xml"
-#     state_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_state.xml"
-#     params_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\params.xml"
-#     transfer_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_transfer.nc"
-#     rain_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_rain.nc"
-#     meteo_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_meteo.nc"
-#     operation_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_operation.nc"
-#     hydrograph_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_hydrograph.nc"
+#     runinfo_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\RunInfo.xml"
+#     state_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\State.xml"
+#     params_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\Parameters.xml"
+#     transfer_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\Transfer.nc"
+#     rain_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\Rain.nc"
+#     meteo_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\Meteo.nc"
+#     operation_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\input_operation.nc"
+#     hydrograph_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\input_hydrograph.nc"
 
 #     gateops = GateOpsFormatter(state_xml)
-#     happy_jacks_filename = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\model\templates\Template_GateOps_HappyJacks.dat"
+#     happy_jacks_filename = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\Model\templates\Template_GateOps_HappyJacks.dat"
 
 #     print(gateops.initial_storage("410571", happy_jacks_filename))
 
@@ -607,7 +607,7 @@ class FormatUtilities:
     # print(Operation.override_outflow(id))
 
     # hydrograph = HydrographFormatter(runinfo_xml, hydrograph_netcdf)
-    # template_folder = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\model\templates\Template_Talbingo_with_Blowering.catg"
+    # template_folder = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\Model\templates\Template_Talbingo_with_Blowering.catg"
     # id = "410574"
     # gauge = "YarrangobillyRiverAtRavine"
     # print(hydrograph.find_print_num(gauge, template_folder))

@@ -229,6 +229,6 @@ def write_run_batch(runinfo_xml):
 
 
 if __name__ == "__main__":
-    runinfo_xml = r"C:\RORB_FEWS_Adapter\examples\to_rorb\runinfo.xml"
+    runinfo_xml = r"C:\RORB_FEWS_Adapter\examples\FromFews\RunInfo.xml"
     write_template_files(runinfo_xml)
     write_run_batch(runinfo_xml)

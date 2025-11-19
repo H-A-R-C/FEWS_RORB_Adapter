@@ -85,7 +85,7 @@ class XMLReader:
     def extract_datetime_from_element(self, element_name: str) -> str:
         """
         Extracts the datetime of a specific attribute from an element.
-        Specifically for runinfo.xml
+        Specifically for RunInfo.xml
         """        
         try: 
             date = self.extract_attribute_from_element(element_name, 'date')
@@ -122,7 +122,7 @@ class XMLReader:
     def extract_properties_value_from_key(self, search_key_name: str) -> str:
         """
         Extracts the value of a specific subelement based on a 'key' attribute within a 'properties' element.
-        Specifically for runinfo.xml
+        Specifically for RunInfo.xml
         """
         try:
             # Find the key with the specified name.
@@ -143,7 +143,7 @@ class XMLReader:
     def extract_rorb_parameter_value(self, group_id: str, param_search_id: str, param_search_subelem: str) -> str:
         """
         Extracts the text content of a specified subelement defined by a group ID, parameter ID, and subelement field name.
-        Specifically for params.xml
+        Specifically for Parameters.xml
         """
         try:
             # Find the group with the @id.
@@ -175,7 +175,7 @@ class XMLReader:
             self, group_id: str, param_condition_id: str, param_condition_stringValue: str, param_search_id: str, param_search_subelem: str) -> float:
         """
         Extracts the text content of a specified field from a parameter within a group that meets specific conditions.
-        Specifically for params.xml
+        Specifically for Parameters.xml
         """
         try:
             # Find all groups with the parameter @id.
@@ -224,7 +224,7 @@ class XMLReader:
     def extract_event_state_variable(self, state_search_locationId: str, state_search_parameterId: str, missVal_fill = np.nan) -> float:
         """
         Extracts the event value of a specific locationId and parameterId.
-        Specifically for input_state.xml
+        Specifically for State.xml
         """
 
         try:
@@ -269,7 +269,7 @@ class XMLReader:
 # ----------------------------------------------------------------------------
 class XMLWriter:
     def __init__(self):
-        self.template = """<TimeSeries xmlns="http://www.wldelft.nl/fews/PI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wldelft.nl/fews/PI http://fews.wldelft.nl/schemas/version1.0/pi-schemas/pi_timeseries.xsd" version="1.2">
+        self.template = """<TimeSeries xmlns="http://www.wldelft.nl/fews/PI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.wldelft.nl/fews/PI https://fewsdocs.deltares.nl/schemas/version1.0/pi-schemas/pi_timeseries.xsd" version="1.2">
     <daylightSavingObservingTimeZone>AET</daylightSavingObservingTimeZone></TimeSeries>"""        
         self.root = etree.fromstring(self.template)
         self.headers_cache = {}
@@ -614,7 +614,7 @@ class DataUtilities:
 if __name__ == '__main__':
 # #     logging.basicConfig(level=logging.DEBUG, filename='xml_utilities.log', format='%(asctime)s - %(levelname)s - %(message)s')
 
-#     rain_filepath = r"S:\3_Projects\SHL00067\5_Technical\1_Adapter\RORB-FEWS-adapter\examples\talbingo_rog_local-rog\to_rorb\input_rain.nc"
+#     rain_filepath = r"S:\3_Projects\SHL00067\5_Technical\1_Adapter\RORB-FEWS-adapter\examples\talbingo_rog_local-rog\FromFews\Rain.nc"
 #     rain = NetCDFReader(rain_filepath)
 #     big_byte_list = rain.extract_variable_list('station_id')
 #     print(DataUtilities.decode_big_byte_list_to_string_list(big_byte_list))
@@ -622,16 +622,16 @@ if __name__ == '__main__':
 #     # print(P_lst)
 #     # print(DataUtilities.flatten_and_transpose(P_lst))
 
-#     transfer_filepath = r"S:\3_Projects\SHL00067\5_Technical\1_Adapter\RORB-FEWS-adapter\examples\talbingo_rog_local-rog\to_rorb\input_transfer.nc"
+#     transfer_filepath = r"S:\3_Projects\SHL00067\5_Technical\1_Adapter\RORB-FEWS-adapter\examples\talbingo_rog_local-rog\FromFews\Transfer.nc"
 #     transfer = NetCDFReader(transfer_filepath)
 #     transfer.extract_variable_value_with_conditions('station_id', '410542', 'Qtrans_forecast', missVal_attribute='_FillValue')
 
-    meteo_filepath = r"S:\3_Projects\SHL00067\5_Technical\1_Adapter\RORB-FEWS-adapter\examples\talbingo_rog_local-rog\to_rorb\input_meteo.nc"
+    meteo_filepath = r"S:\3_Projects\SHL00067\5_Technical\1_Adapter\RORB-FEWS-adapter\examples\talbingo_rog_local-rog\FromFews\Meteo.nc"
     meteo = NetCDFReader(meteo_filepath)
     t = meteo.extract_variable_list('T_observed', missVal_attribute='_FillValue', missVal_fill=np.nan)
     print(t)
 
-    # operation_filepath = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_operation.nc"
+    # operation_filepath = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\input_operation.nc"
     # operation = NetCDFReader(operation_filepath)
     # t = operation.extract_variable_list('Outflow', missVal_attribute='_FillValue', missVal_fill=np.nan)
     # print(t)

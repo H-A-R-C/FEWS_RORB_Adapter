@@ -1,12 +1,12 @@
 """
 This module is used to compile the input files from Delft-FEWS to a dataclass object.
 Each class compiles a specific input file (xml or netCDF):
-- RunInfo: compiles runinfo.xml file
-- Params: compiles params.xml file
-- State: compiles input_state.xml file
-- Rain: compiles input_rain.nc file
-- Meteo: compiles input_meteo.nc file
-- Transfer: compiles input_transfer.nc file
+- RunInfo: compiles RunInfo.xml file
+- Params: compiles Parameters.xml file
+- State: compiles State.xml file
+- Rain: compiles Rain.nc file
+- Meteo: compiles Meteo.nc file
+- Transfer: compiles Transfer.nc file
 
 The attribute of the dataclass is set as two-level nested dataclass:
 - level 1: rorb-category (e.g. isa, bf, sub, etc.)
@@ -44,12 +44,12 @@ class RORBConfig:
 @dataclass
 class RunInfo:
     """
-    Class to compile runinfo.xml file to a dataclass RunInfoManager
-    :param runinfo_xml: Path to the runinfo.xml file
+    Class to compile RunInfo.xml file to a dataclass RunInfoManager
+    :param runinfo_xml: Path to the RunInfo.xml file
 
     Example Usage:
     runinfo = RunInfo(runinfo_xml)
-    runinfo.inputMeteoFile
+    RunInfo.inputMeteoFile
     """
     runinfo_xml: str
 
@@ -100,13 +100,13 @@ class GateOpsSubManager:
 @dataclass
 class Params(RORBConfig):
     """
-    Class to compile params.xml file to a dataclass ParamsManager
-    :param params_xml: Path to the params.xml file
+    Class to compile Parameters.xml file to a dataclass ParamsManager
+    :param params_xml: Path to the Parameters.xml file
     
     Example Usage:
     params = Params(params_xml)
-    params.isa["1"].IL
-    params.num_burst
+    Parameters.isa["1"].IL
+    Parameters.num_burst
     """
     params_xml: str
 
@@ -170,8 +170,8 @@ class SnowSubManager:
 @dataclass
 class State(RORBConfig):
     """
-    Class to compile input_state.xml file to a dataclass StateManager
-    :param state_xml: Path to the input_state.xml file
+    Class to compile State.xml file to a dataclass StateManager
+    :param state_xml: Path to the State.xml file
     
     Example Usage:
     state = State(state_xml)
@@ -211,8 +211,8 @@ class State(RORBConfig):
 @dataclass
 class Rain(RORBConfig):
     """
-    Class to compile input_rain.nc file to a dictionary of rain data
-    :param rain_netcdf: Path to the input_rain.nc file
+    Class to compile Rain.nc file to a dictionary of rain data
+    :param rain_netcdf: Path to the Rain.nc file
 
     Example Usage:
     rain = Rain(rain_netcdf)
@@ -250,8 +250,8 @@ class TransferManager:
 @dataclass
 class Transfer(RORBConfig):
     """
-    Class to compile input_transfer.nc file to a dictionary of transfer data
-    :param transfer_netcdf: Path to the input_transfer.nc file
+    Class to compile Transfer.nc file to a dictionary of transfer data
+    :param transfer_netcdf: Path to the Transfer.nc file
 
     Example Usage:
     transfer = Transfer(transfer_netcdf)
@@ -287,8 +287,8 @@ class MeteoManager:
 @dataclass
 class Meteo(RORBConfig):
     """
-    Class to compile input_meteo.nc file to a dictionary of meteo data
-    :param meteo_netcdf: Path to the input_meteo.nc file
+    Class to compile Meteo.nc file to a dictionary of meteo data
+    :param meteo_netcdf: Path to the Meteo.nc file
 
     Example Usage:
     meteo = Meteo(meteo_netcdf)
@@ -357,42 +357,42 @@ class Operation(RORBConfig):
         return operation_dict  
     
 if __name__ == '__main__':
-    # runinfo_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\runinfo.xml"
+    # runinfo_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\RunInfo.xml"
     # runinfo = RunInfo(runinfo_xml)
-    # print(runinfo.inputStateFile)
-    # print(runinfo.inputMeteoFile)
+    # print(RunInfo.inputStateFile)
+    # print(RunInfo.inputMeteoFile)
 
-    params_xml = r"C:\RORB_FEWS_Adapter\examples\to_rorb\params.xml"
+    params_xml = r"C:\RORB_FEWS_Adapter\examples\FromFews\Parameters.xml"
     params = Params(params_xml)
     print(params.gateops["410542"].procedure)
 
-    operation_nc = r"C:\RORB_FEWS_Adapter\examples\to_rorb\input_operation.nc"
+    operation_nc = r"C:\RORB_FEWS_Adapter\examples\FromFews\input_operation.nc"
     operation = Operation(operation_nc)
     for key, value in operation.dam.items():
         print(f"{key}")
 
-    # state_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_state.xml"
+    # state_xml = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\State.xml"
     # state = State(state_xml)
     # print(state.dam["410571"].level)
     # print(state.snow["DeepCreek"].SD)
 
-    # rain_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_rain.nc"
+    # rain_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\Rain.nc"
     # rain = Rain(rain_netcdf)
     # print(rain.sub['CR'])
 
-    # transfer_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_transfer.nc"
+    # transfer_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\Transfer.nc"
     # transfer = Transfer(transfer_netcdf)
     # print(transfer.trans['410571'].Qtrans)
 
-    # meteo_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_meteo.nc"
+    # meteo_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\Meteo.nc"
     # meteo = Meteo(meteo_netcdf)
     # print(meteo.snow['14'].T)
 
-    # hydrograph_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_hydrograph.nc"
+    # hydrograph_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\input_hydrograph.nc"
     # hydrograph = Hydrograph(hydrograph_netcdf)
     # print(hydrograph.gauge['410542'])
 
-    # operation_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\to_rorb\input_operation.nc"
+    # operation_netcdf = r"T:\Zijian\RORB_FEWS_Adaptor\RORB-FEWS-adapter\examples\Updated_RORB_28_Nov_24\FromFews\input_operation.nc"
     # operation = Operation(operation_netcdf)
     # print(operation.dam['410545'].Outflow)
 

@@ -6,24 +6,24 @@
     <endDateTime date="2023-09-14" time="12:00:00"/>
     <time0 date="2023-09-07" time="12:00:00"/>
     <lastObservationDateTime date="2023-09-14" time="12:00:00"/>
-    <workDir>{example_directory}\{id}\model</workDir>
-    <inputParameterFile>{example_directory}\{id}\to_rorb\params.xml</inputParameterFile>
-    <inputTimeSeriesFile>{example_directory}\{id}\to_rorb\input_rain.xml</inputTimeSeriesFile>
-    <inputTimeSeriesFile>{example_directory}\{id}\to_rorb\input_meteo.xml</inputTimeSeriesFile>
-    <inputTimeSeriesFile>{example_directory}\{id}\to_rorb\input_state.xml</inputTimeSeriesFile>
-    <inputTimeSeriesFile>{example_directory}\{id}\to_rorb\input_transfer.xml</inputTimeSeriesFile>
-    <inputNetcdfFile>{example_directory}\{id}\to_rorb\input_rain.nc</inputNetcdfFile>
-    <inputNetcdfFile>{example_directory}\{id}\to_rorb\input_meteo.nc</inputNetcdfFile>
-    <inputNetcdfFile>{example_directory}\{id}\to_rorb\input_state.nc</inputNetcdfFile>
-    <inputNetcdfFile>{example_directory}\{id}\to_rorb\input_transfer.nc</inputNetcdfFile>
+    <workDir>{example_directory}\{id}\Model</workDir>
+    <inputParameterFile>{example_directory}\{id}\FromFews\Parameters.xml</inputParameterFile>
+    <inputTimeSeriesFile>{example_directory}\{id}\FromFews\Rain.xml</inputTimeSeriesFile>
+    <inputTimeSeriesFile>{example_directory}\{id}\FromFews\Meteo.xml</inputTimeSeriesFile>
+    <inputTimeSeriesFile>{example_directory}\{id}\FromFews\State.xml</inputTimeSeriesFile>
+    <inputTimeSeriesFile>{example_directory}\{id}\FromFews\Transfer.xml</inputTimeSeriesFile>
+    <inputNetcdfFile>{example_directory}\{id}\FromFews\Rain.nc</inputNetcdfFile>
+    <inputNetcdfFile>{example_directory}\{id}\FromFews\Meteo.nc</inputNetcdfFile>
+    <inputNetcdfFile>{example_directory}\{id}\FromFews\State.nc</inputNetcdfFile>
+    <inputNetcdfFile>{example_directory}\{id}\FromFews\Transfer.nc</inputNetcdfFile>
     <outputDiagnosticFile>{example_directory}\{id}\rorb_preadapter_log.txt</outputDiagnosticFile>
-    <outputTimeSeriesFile>{example_directory}\{id}\from_rorb\Gauge_Flow.xml</outputTimeSeriesFile>
-    <outputTimeSeriesFile>{example_directory}\{id}\from_rorb\Reservoir_Operation.xml</outputTimeSeriesFile>
-    <outputTimeSeriesFile>{example_directory}\{id}\from_rorb\Rainfall_Excess.xml</outputTimeSeriesFile>
+    <outputTimeSeriesFile>{example_directory}\{id}\ToFews\Gauge_Flow.xml</outputTimeSeriesFile>
+    <outputTimeSeriesFile>{example_directory}\{id}\ToFews\Reservoir_Operation.xml</outputTimeSeriesFile>
+    <outputTimeSeriesFile>{example_directory}\{id}\ToFews\Rainfall_Excess.xml</outputTimeSeriesFile>
     <properties>
-        <string key="model_folder" value="{example_directory}\{id}\model\"/>
-        <string key="tororb_folder" value="{example_directory}\{id}\to_rorb\"/>
-        <string key="fromrorb_folder" value="{example_directory}\{id}\from_rorb\"/>
+        <string key="model_folder" value="{example_directory}\{id}\Model\"/>
+        <string key="tororb_folder" value="{example_directory}\{id}\FromFews\"/>
+        <string key="fromrorb_folder" value="{example_directory}\{id}\ToFews\"/>
         <string key="gat1_file" value="GateOps_HappyJacks.dat"/>
         <string key="gat2_file" value="GateOps_TumutPond.dat"/>
         <string key="gat3_file" value="GateOps_Tumut2.dat"/>

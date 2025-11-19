@@ -110,5 +110,5 @@ def read_rorb_outputs(runinfo_xml):
     xml_writer.write_df_to_xml(selected_hydrographs, output_xml)
 
 if __name__ == "__main__":
-    runinfo_xml = r"C:\RORB_FEWS_Adapter\examples\to_rorb\runinfo.xml"
+    runinfo_xml = r"C:\RORB_FEWS_Adapter\examples\FromFews\RunInfo.xml"
     read_rorb_outputs(runinfo_xml)

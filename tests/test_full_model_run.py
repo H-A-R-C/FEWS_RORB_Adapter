@@ -19,7 +19,7 @@ test_snowmelt_water_content_elezone = [1, 2, 3, 4, 5]
 test_snowmelt_weighted_snowpack_density = [1, 2, 3, 4, 5]
 
 runinfo_template = r"C:\RORB_FEWS_Adapter\tests\template_runinfo.xml"
-rorb_exe = r"C:\RORB_FEWS_Adapter\bin_rorb\RORB_CMD\rorb_cmd.exe"
+rorb_exe = r"C:\RORB_FEWS_Adapter\BinRorb\RORB_CMD\rorb_cmd.exe"
 
 model_config = {
     "Snowmelt_Off": {
@@ -49,9 +49,9 @@ model_config = {
 @pytest.fixture
 def initialize_test_directory(id):
     folders = {
-        "to_rorb": os.path.join(example_directory, f"{id}\\to_rorb"),
-        "model": os.path.join(example_directory, f"{id}\\model"),
-        "from_rorb": os.path.join(example_directory, f"{id}\\from_rorb"),
+        "FromFews": os.path.join(example_directory, f"{id}\\FromFews"),
+        "model": os.path.join(example_directory, f"{id}\\Model"),
+        "ToFews": os.path.join(example_directory, f"{id}\\ToFews"),
         "logs": os.path.join(example_directory, f"{id}\\Logs")
     }
     for folder in folders.values():
@@ -100,7 +100,7 @@ def test_01_prepare_template_file(id, setting, initialize_test_directory):
     rorb_model = setting.get("directory_path")
     copy_files(rorb_model, os.path.join(example_directory, f"{id}"))
 
-    runinfo_output_path = os.path.join(test_folders["to_rorb"], "RunInfo.xml")
+    runinfo_output_path = os.path.join(test_folders["FromFews"], "RunInfo.xml")
     try:
         template_runinfo = TemplateWriter(runinfo_template, runinfo_output_path)
         template_runinfo.fill(replacements_dict={
@@ -117,7 +117,7 @@ def test_02_compile_input_files(id, setting, initialize_test_directory):
     test_folders = initialize_test_directory
     rorb_model = setting.get("directory_path")
     copy_files(rorb_model, os.path.join(example_directory, f"{id}"))
-    runinfo_xml = os.path.join(test_folders["to_rorb"], "RunInfo.xml")
+    runinfo_xml = os.path.join(test_folders["FromFews"], "RunInfo.xml")
     template_runinfo = TemplateWriter(runinfo_template, runinfo_xml)
     template_runinfo.fill(replacements_dict={
         'example_directory': example_directory,
@@ -291,7 +291,7 @@ def test_02_compile_input_files(id, setting, initialize_test_directory):
 @pytest.mark.parametrize("id, setting", model_config.items())
 def test_03_run_rorb(id, setting):
     try:
-        PARfile = os.path.join(example_directory, f"{id}\\model\\RORB_CMD.par")
+        PARfile = os.path.join(example_directory, f"{id}\\Model\\RORB_CMD.par")
         result = subprocess.run([rorb_exe, PARfile], check=True, capture_output=True, text=True)
 
         # Debug output
