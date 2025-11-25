@@ -7,6 +7,7 @@ import datetime
 from src.utils import *
 from src.input_compiler import *
 from src.pre_adapter import *
+from src.post_adapter import read_rorb_outputs
 import xml.etree.ElementTree as ET
 import logging
 
@@ -140,7 +141,7 @@ def test_02_compile_input_files(id, setting, initialize_test_directory):
     transfer_xml = runinfo_compiler.inputTransferFile
     model_folder = runinfo_compiler.model_folder
     template_folder = runinfo_compiler.model_folder + "templates\\"
-
+    operation_netcdf = runinfo_compiler.inputOperationFile 
     # Write .par file 
     # Load model parameters and formatted ones
     param_compiler = Params(params_xml)
@@ -257,7 +258,26 @@ def test_02_compile_input_files(id, setting, initialize_test_directory):
             }
         )
         transfer_counter +=1
+    # Initialize operation counter and input list
+    operation_counter = 0
+    operation_file_list = []
 
+    # Write gate operation override files
+    operation_formatter = OpFormatter(runinfo_xml, operation_netcdf)
+    gateoverride_list = operation_formatter.get_dam_ids()
+    for key, value in gateops_big_dict.items():
+        id = key
+        storage = value["storage"]
+        filename = value.get("overwrite_filename")   
+        if id in gateoverride_list and filename:
+            writer = TemplateWriter(f"{template_folder}Template_GateOpsOverride.dat", f"{model_folder}{filename}")
+            writer.fill(replacements_dict={
+                "gate_override": storage,
+                "outflow_opening": operation_formatter.override_outflow_and_opening(id),
+                }
+            )
+            operation_file_list.append(f"{model_folder}{filename}")
+            operation_counter +=1
     # Write multiGateOps file
     multigateops_writer = TemplateWriter(f"{template_folder}Template_multiGateOps_UpperTumut_until_Jounama.dat", f"{model_folder}multiGateOps_UpperTumut_until_Jounama.dat")
     if setting.get("rorbTransfer") == "true":
@@ -267,8 +287,13 @@ def test_02_compile_input_files(id, setting, initialize_test_directory):
             "transfer_number" : transfer_counter,
             "transfer_timestep_hour": trans_formatter.timestep_hour,
             "transfer_number_timestep": trans_formatter.num_data,
-            "transfer_files": FormatUtilities.format_lists(transfer_file_list)
-            })
+            "transfer_files": FormatUtilities.format_lists(transfer_file_list),
+            "operation_number": operation_counter,
+            "operation_timestep_hour": operation_formatter.timestep_hour,
+            "operation_number_timestep": operation_formatter.num_data,
+            "operation_files": FormatUtilities.format_lists(operation_file_list),
+            }
+                                 )
     else:
         multigateops_writer.fill(replacements_dict={
             "gateops_number": gateops_counter,
@@ -287,6 +312,10 @@ def test_02_compile_input_files(id, setting, initialize_test_directory):
 def test_03_run_rorb(id, setting):
     try:
         PARfile = os.path.join(example_directory, f"{id}\\Model\\RORB_CMD.par")
+        # set  working directory to the model folder
+        os.chdir(os.path.dirname(PARfile))
+        
+        
         result = subprocess.run([rorb_exe, PARfile], check=True, capture_output=True, text=True)
 
         # Debug output
@@ -301,3 +330,8 @@ def test_03_run_rorb(id, setting):
     except Exception as e:
         print(f"Error in {id}: {e}")
         raise
+
+@pytest.mark.parametrize("id, setting", model_config.items())
+def test_04_run_post_adapter(id, setting):
+    runinfo_xml = os.path.join(example_directory, f"{id}\\FromFews\\RunInfo.xml")
+    read_rorb_outputs(runinfo_xml)

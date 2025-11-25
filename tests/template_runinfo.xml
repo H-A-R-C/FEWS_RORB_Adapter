@@ -16,6 +16,7 @@
     <inputNetcdfFile>{example_directory}\{id}\FromFews\Meteo.nc</inputNetcdfFile>
     <inputNetcdfFile>{example_directory}\{id}\FromFews\State.nc</inputNetcdfFile>
     <inputNetcdfFile>{example_directory}\{id}\FromFews\Transfer.nc</inputNetcdfFile>
+    <inputNetcdfFile>{example_directory}\{id}\FromFews\Operation.nc</inputNetcdfFile>
     <outputDiagnosticFile>{example_directory}\{id}\rorb_preadapter_log.txt</outputDiagnosticFile>
     <outputTimeSeriesFile>{example_directory}\{id}\ToFews\Gauge_Flow.xml</outputTimeSeriesFile>
     <outputTimeSeriesFile>{example_directory}\{id}\ToFews\Reservoir_Operation.xml</outputTimeSeriesFile>
