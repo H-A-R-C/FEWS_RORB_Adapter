@@ -22,5 +22,13 @@
         "7": ["DeepCreek", "Spencers", "ThreeMileDam"],
         "8": ["Spencers", "DeepCreek", "ThreeMileDam"],
         "9": ["Spencers", "DeepCreek", "ThreeMileDam"] 
+    },
+    "rorb_gate_ops_parameters": {
+        "observed-automatic": 1,
+        "observed-open": 2,
+        "observed-manual": 3,
+        "automatic": 4,
+        "open": 5,
+        "manual": 6
     }
 }

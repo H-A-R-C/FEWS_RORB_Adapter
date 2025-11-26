@@ -214,6 +214,9 @@ class XMLReader:
 
             search_param_txt = search_param_field.text
             if search_param_txt:
+                # check if param_search_subelem is stringValue
+                if param_search_subelem == "stringValue":
+                    return search_param_txt
                 return float(search_param_txt)
             else:
                 raise ValueError(f"Subelement '{param_search_subelem}' in parameter '{param_search_id}' of group '{group_id}' has no text.")

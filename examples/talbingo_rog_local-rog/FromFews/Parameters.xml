@@ -574,8 +574,7 @@
         </parameter>
         <parameter id="rorbGate" name="Rorb gate ops procedure">
             <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
-            <intValue>2</intValue>
-            <dblValue></dblValue>
+            <stringValue>automatic</stringValue>
         </parameter>
     </group>
     <group id="Gate parameters" readonly="false">
@@ -585,8 +584,7 @@
         </parameter>
         <parameter id="rorbGate" name="Rorb gate ops procedure">
             <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
-            <intValue>2</intValue>
-            <dblValue></dblValue>
+            <stringValue>automatic</stringValue>
         </parameter>
     </group>
     <group id="Gate parameters" readonly="false">
@@ -596,8 +594,7 @@
         </parameter>
         <parameter id="rorbGate" name="Rorb gate ops procedure">
             <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
-            <intValue>1</intValue>
-            <dblValue></dblValue>
+            <stringValue>automatic</stringValue>
         </parameter>
     </group>
     <group id="Gate parameters" readonly="false">
@@ -607,8 +604,7 @@
         </parameter>
         <parameter id="rorbGate" name="Rorb gate ops procedure">
             <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
-            <intValue>2</intValue>
-            <dblValue></dblValue>
+            <stringValue>automatic</stringValue>
         </parameter>
     </group>
     <group id="Gate parameters" readonly="false">
@@ -618,8 +614,7 @@
         </parameter>
         <parameter id="rorbGate" name="Rorb gate ops procedure">
             <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
-            <intValue>2</intValue>
-            <dblValue></dblValue>
+            <stringValue>automatic</stringValue>
         </parameter>
     </group>
     <group id="Gate parameters" readonly="false">
@@ -629,8 +624,7 @@
         </parameter>
         <parameter id="rorbGate" name="Rorb gate ops procedure">
             <description>{rorbGate} Gate Ops Procedure Selected [1, 2, 3, 4, 5]</description>
-            <intValue>2</intValue>
-            <dblValue></dblValue>
+            <stringValue>automatic</stringValue>
         </parameter>
     </group>
 </parameters>

@@ -152,8 +152,14 @@ class Params(RORBConfig):
         go_dict = {}
         xml = XMLReader(self.params_xml)
         for i in self.rorb_dam_list:
+            # Extract gate operation procedure the string and map to integer value defined in rorb_config.json in "rorb_gate_ops_parameters"
+            procedure_str = xml.extract_rorb_parameter_value_with_conditions('Gate parameters', 'rorbId', f"{i}", 'rorbGate', 'stringValue')
+            procedure=self.config.extract("rorb_gate_ops_parameters").get(procedure_str, None)
+            if procedure is None:
+                logging.error(f"Gate operation procedure '{procedure_str}' for dam '{i}' not recognized. Setting to None.")
+                continue
             go_dict[f"{i}"] = GateOpsSubManager(
-                procedure=xml.extract_rorb_parameter_value_with_conditions('Gate parameters', 'rorbId', f"{i}", 'rorbGate', 'intValue'),
+                procedure=procedure
             )
         return go_dict    
 
