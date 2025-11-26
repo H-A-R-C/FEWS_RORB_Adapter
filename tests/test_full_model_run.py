@@ -16,6 +16,7 @@ root_directory = r"C:\Users\christian.urich\codes\FEWS_RORB_Adapter"
 
 example_directory = os.path.join(root_directory, "examples")
 pre_adapter = os.path.join(root_directory, "dist")
+temp_model_directory = os.path.join(root_directory, "temp_model_run")
 
 
 test_temp_timeseries = [1, 2, 3, 4, 5]
@@ -54,10 +55,10 @@ model_config = {
 @pytest.fixture
 def initialize_test_directory(id):
     folders = {
-        "FromFews": os.path.join(example_directory, f"{id}\\FromFews"),
-        "model": os.path.join(example_directory, f"{id}\\Model"),
-        "ToFews": os.path.join(example_directory, f"{id}\\ToFews"),
-        "logs": os.path.join(example_directory, f"{id}\\Logs")
+        "FromFews": os.path.join(temp_model_directory, f"{id}\\FromFews"),
+        "model": os.path.join(temp_model_directory, f"{id}\\Model"),
+        "ToFews": os.path.join(temp_model_directory, f"{id}\\ToFews"),
+        "logs": os.path.join(temp_model_directory, f"{id}\\Logs")
     }
     for folder in folders.values():
         os.makedirs(folder, exist_ok=True)
@@ -105,12 +106,12 @@ def test_01_prepare_template_file(id, setting, initialize_test_directory):
     rorb_model = setting.get("directory_path")
     
     
-    copy_files(rorb_model, os.path.join(example_directory, f"{id}"))
+    copy_files(rorb_model, os.path.join(temp_model_directory, f"{id}"))
     runinfo_output_path = os.path.join(test_folders["FromFews"], "RunInfo.xml")
     try:
         template_runinfo = TemplateWriter(runinfo_template, runinfo_output_path)
         template_runinfo.fill(replacements_dict={
-            'example_directory': example_directory,
+            'example_directory': temp_model_directory,
             'id': id,
             'rorb_folder': os.path.dirname(rorb_exe),
             'exe': os.path.basename(rorb_exe)
@@ -122,11 +123,11 @@ def test_01_prepare_template_file(id, setting, initialize_test_directory):
 def test_02_compile_input_files(id, setting, initialize_test_directory):
     test_folders = initialize_test_directory
     rorb_model = setting.get("directory_path")
-    copy_files(rorb_model, os.path.join(example_directory, f"{id}"))
+    copy_files(rorb_model, os.path.join(temp_model_directory, f"{id}"))
     runinfo_xml = os.path.join(test_folders["FromFews"], "RunInfo.xml")
     template_runinfo = TemplateWriter(runinfo_template, runinfo_xml)
     template_runinfo.fill(replacements_dict={
-        'example_directory': example_directory,
+        'example_directory': temp_model_directory,
         'id': id,
         'rorb_folder': os.path.dirname(rorb_exe),
         'exe': os.path.basename(rorb_exe)
@@ -311,7 +312,7 @@ def test_02_compile_input_files(id, setting, initialize_test_directory):
 @pytest.mark.parametrize("id, setting", model_config.items())
 def test_03_run_rorb(id, setting):
     try:
-        PARfile = os.path.join(example_directory, f"{id}\\Model\\RORB_CMD.par")
+        PARfile = os.path.join(temp_model_directory, f"{id}\\Model\\RORB_CMD.par")
         # set  working directory to the model folder
         os.chdir(os.path.dirname(PARfile))
         
@@ -333,5 +334,5 @@ def test_03_run_rorb(id, setting):
 
 @pytest.mark.parametrize("id, setting", model_config.items())
 def test_04_run_post_adapter(id, setting):
-    runinfo_xml = os.path.join(example_directory, f"{id}\\FromFews\\RunInfo.xml")
+    runinfo_xml = os.path.join(temp_model_directory, f"{id}\\FromFews\\RunInfo.xml")
     read_rorb_outputs(runinfo_xml)
